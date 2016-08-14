@@ -1,10 +1,15 @@
 import {h, Component, render} from "preact";
 
+const TodoItem = function() {
+  return (
+    <div>Buy milk</div>
+  );
+};
+
 const App = function() {
   return (
     <div>
-      <span>Hello, World!</span>
-      <span>I get transformed to Preact!</span>
+      <TodoItem />
     </div>
   );
 };

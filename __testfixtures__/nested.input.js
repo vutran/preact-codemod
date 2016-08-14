@@ -1,12 +1,19 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+const TodoItem = React.createClass({
+  render: function() {
+    return (
+      <div>Buy milk</div>
+    );
+  },
+});
+
 const App = React.createClass({
   render: function() {
     return (
       <div>
-        <span>Hello, World!</span>
-        <span>I get transformed to Preact!</span>
+      	<TodoItem />
       </div>
     );
   }

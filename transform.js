@@ -12,38 +12,22 @@ module.exports = (file, api) => {
   root
     .findVariableDeclarators('ReactDOM')
     .closest(j.VariableDeclaration)
-    .replaceWith(importDeclaration('preact', ['h', 'render']));
+    .replaceWith(importDeclaration('preact', ['h', 'Component', 'render']));
 
   // replace createClass
-  let jsxElement = null;
   root
     .find(j.Identifier, n => n.name === 'createClass')
     .closest(j.CallExpression)
     .find(j.JSXElement)
-    .forEach(n => {
-      if (n.parentPath.value.type === 'ReturnStatement') {
-        jsxElement = n;
-      }
-    })
+    .filter(n => n.parentPath.value.type === 'ReturnStatement')
     .closest(j.CallExpression)
-    .replaceWith(n => getJSXElement(jsxElement));
+    .replaceWith(n => n.value.arguments[0].properties.filter(p => p.key.name === 'render')[0].value)
 
   // replace ReactDOM.render() call
-  const renderCall = root
+  root
     .find(j.MemberExpression)
     .filter(n => n.value.object.name === 'ReactDOM' && n.value.property.name === 'render')
-    // replace render()
-    .replaceWith({ type: 'Identifier', name: 'render' })
-    // replace args
-    .forEach(n => {
-      const args = n.parentPath.value.arguments.map(a => {
-        if (a.type === 'JSXElement') {
-          return a.openingElement.name.name;
-        }
-        return a;
-      });
-      n.parentPath.value.arguments = args;
-    });
+    .replaceWith({ type: 'Identifier', name: 'render' });
 
   return root.toSource();
 };
@@ -79,25 +63,29 @@ const importDeclaration = (source, values) => {
  * @return {Node}
  */
 const getJSXElement = node => {
+  const render = node.value.arguments[0].properties.filter(p => p.key.name === 'render')[0];
+  const jsxElement = render.value.body.body[0].argument;
+  console.log(jsxElement);
+
   return {
-    type: node.value.type,
+    type: jsxElement.type,
     openingElement: {
-      type: node.value.openingElement.type,
+      type: jsxElement.openingElement.type,
       name: {
-        type: node.value.openingElement.name.type,
-        name: node.value.openingElement.name.name,
+        type: jsxElement.openingElement.name.type,
+        name: jsxElement.openingElement.name.name,
       },
-      attributes: [],
+      attributes: jsxElement.openingElement.attributes,
     },
     closingElement: {
-      type: node.value.closingElement.type,
+      type: jsxElement.closingElement.type,
       name: {
-        type: node.value.closingElement.name.type,
-        name: node.value.closingElement.name.name,
+        type: jsxElement.closingElement.name.type,
+        name: jsxElement.closingElement.name.name,
       },
       attributes: [],
     },
-    parenthesizedExpression: node.value.parenthesizedExpression,
-    children: node.value.children.slice(),
+    parenthesizedExpression: jsxElement.parenthesizedExpression,
+    children: jsxElement.children.slice(),
   };
 };
