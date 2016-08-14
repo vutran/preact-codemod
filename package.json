@@ -1,0 +1,11 @@
+{
+  "name": "react-transform-preact",
+  "version": "0.1.0",
+  "description": "Transform your React code to Preact",
+  "main": "transform.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vu Tran <vu@vu-tran.com>",
+  "license": "MIT"
+}
