@@ -4,8 +4,13 @@
   "description": "Transform your React code to Preact",
   "main": "transform.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Vu Tran <vu@vu-tran.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest-cli": "^14.1.0",
+    "jscodeshift": "^0.3.27"
+  },
+  "dependencies": {}
 }

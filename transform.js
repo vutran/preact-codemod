@@ -1,100 +1,41 @@
-export default function transformer(file, api) {
+module.exports = (file, api) => {
   const j = api.jscodeshift;
-  const {expression, statement, statements} = j.template;
   const root = j(file.source);
 
-  const getPreact = node => {
-    return {
-      type: 'MemberExpression',
-      object: {
-        type: 'CallExpression',
-        callee: {
-          type: 'Identifier',
-          name: 'require',
-        },
-        arguments: [
-          {
-            type: 'Literal',
-            value: 'preact',
-          },
-        ],
-      },
-      property: {
-        type: 'Identifier',
-        name: 'h',
-      },
-    };
-  };
-
-  const preactRender = {
-    type: 'MemberExpression',
-    object: {
-      type: 'CallExpression',
-      callee: {
-        type: 'Identifier',
-        name: 'require',
-      },
-      arguments: [
-        {
-          type: 'Literal',
-          value: 'preact',
-        },
-      ],
-    },
-    property: {
-      type: 'Identifier',
-      name: 'render',
-    },
-  };
-
-  // replace preact
-  const r = root
-  	.findVariableDeclarators('React')
-    .filter(n => n.value.init.callee)
-    // rename var
-  	.renameTo('preact')
-	// update call
-  	.find(j.CallExpression)
-  	.closest(j.VariableDeclaration)
-	.remove();
-  	//.replaceWith(getPreact);
-
+  // remove react
+  root
+    .findVariableDeclarators('React')
+    .closest(j.VariableDeclaration)
+    .remove();
 
   // replace render
-  const rD = root
+  root
     .findVariableDeclarators('ReactDOM')
-    // rename var
-    .forEach(n => {
-      n.value.id.name = 'render';
-    })
-    // replace call
-    .find(j.CallExpression)
-  	.closest(j.VariableDeclaration)
-	//.replaceWith(preactRender);
-	.replaceWith(importPreact);
+    .closest(j.VariableDeclaration)
+    .replaceWith(importDeclaration('preact', ['h', 'render']));
 
   // replace createClass
   let jsxElement = null;
-  const rCC = root
-  	.find(j.Identifier, n => n.name === 'createClass')
-  	.closest(j.CallExpression)
-  	.find(j.JSXElement)
-  	.forEach(n => {
+  root
+    .find(j.Identifier, n => n.name === 'createClass')
+    .closest(j.CallExpression)
+    .find(j.JSXElement)
+    .forEach(n => {
       if (n.parentPath.value.type === 'ReturnStatement') {
         jsxElement = n;
       }
     })
-  	.closest(j.CallExpression)
+    .closest(j.CallExpression)
     .replaceWith(n => getJSXElement(jsxElement));
 
   // replace ReactDOM.render() call
   const renderCall = root
     .find(j.MemberExpression)
-  	.filter(n => n.value.object.name === 'ReactDOM' && n.value.property.name === 'render')
-	// replace render()
-  	.replaceWith(n => getNewCallee(n.parentPath))
-  	// replace args
-  	.forEach(n => {
+    .filter(n => n.value.object.name === 'ReactDOM' && n.value.property.name === 'render')
+    // replace render()
+    .replaceWith({ type: 'Identifier', name: 'render' })
+    // replace args
+    .forEach(n => {
       const args = n.parentPath.value.arguments.map(a => {
         if (a.type === 'JSXElement') {
           return a.openingElement.name.name;
@@ -104,43 +45,39 @@ export default function transformer(file, api) {
       n.parentPath.value.arguments = args;
     });
 
-  return root
-    .toSource();
+  return root.toSource();
 };
 
-const importPreact = () => ({
-  type: 'ImportDeclaration',
-  importKind: 'value',
-  specifiers: [
-    {
+/**
+ * Creates and returns an import declaration
+ *
+ * @param {String} source - The source module
+ * @param {String[]} values - The named values to import
+ * @return {Node}
+ */
+const importDeclaration = (source, values) => {
+  const node = {
+    type: 'ImportDeclaration',
+    importKind: 'value',
+    source: { type: 'Literal', value: source },
+    specifiers: [],
+  };
+  values.forEach(v => {
+    node.specifiers.push({
       type: 'ImportSpecifier',
-      imported: {
-        type: 'Identifier',
-        name: 'h',
-      },
-      local: {
-        type: 'Identifier',
-        name: 'h',
-      },
-    },
-    {
-      type: 'ImportSpecifier',
-      imported: {
-        type: 'Identifier',
-        name: 'render',
-      },
-      local: {
-        type: 'Identifier',
-        name: 'render',
-      },
-    },
-  ],
-  source: {
-    type: 'Literal',
-    value: 'preact',
-  },
-});
+      imported: { type: 'Identifier', name: v },
+      local: { type: 'Identifier', name: v },
+    })
+  });
+  return node;
+};
 
+/**
+ * Creates and returns a new JSXElement node
+ *
+ * @param {Node} node
+ * @return {Node}
+ */
 const getJSXElement = node => {
   return {
     type: node.value.type,
@@ -160,9 +97,7 @@ const getJSXElement = node => {
       },
       attributes: [],
     },
-    parenthesizedExpression: true,
+    parenthesizedExpression: node.value.parenthesizedExpression,
     children: node.value.children.slice(),
   };
 };
-
-const getNewCallee = node => ({ type: 'Identifier', name: 'render' });
