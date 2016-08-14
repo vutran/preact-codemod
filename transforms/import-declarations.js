@@ -28,6 +28,23 @@ const importDeclaration = (source, values) => {
 module.exports = (file, api) => {
   const j = api.jscodeshift;
   const root = j(file.source);
+  const namedImports = new Set(['h']);
+
+  // should import preact.Component?
+  root
+    .find(j.MemberExpression)
+    .filter(n => n.value.object.name === 'React' && n.value.property.name === 'createClass')
+    .forEach(n => {
+      namedImports.add('Component');
+    });
+
+  // should import preact.render?
+  root
+    .find(j.MemberExpression)
+    .filter(n => n.value.object.name === 'ReactDOM' && n.value.property.name === 'render')
+    .forEach(n => {
+      namedImports.add('render');
+    });
 
   // remove react
   root
@@ -39,7 +56,7 @@ module.exports = (file, api) => {
   root
     .findVariableDeclarators('ReactDOM')
     .closest(j.VariableDeclaration)
-    .replaceWith(importDeclaration('preact', ['h', 'Component', 'render']));
+    .replaceWith(importDeclaration('preact', namedImports));
 
   return root.toSource();
 };
