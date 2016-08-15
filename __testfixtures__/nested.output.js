@@ -1,20 +1,27 @@
 import {h, Component, render} from "preact";
 
-const TodoItem = function() {
+const data = {
+  items: [
+    'Buy milk',
+    'Do laundry',
+  ],
+};
+
+const TodoItem = function(props) {
   return (
-    <div>Buy milk</div>
+    <div>{props.item}</div>
   );
 };
 
-const App = function() {
+const App = function(props) {
   return (
     <div>
-      <TodoItem />
+      {props.data.items.map(item => <TodoItem item={item} />)}
     </div>
   );
 };
 
 render(
-  <App />,
+  <App data={data} />,
   document.body
 );
