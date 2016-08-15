@@ -2,7 +2,7 @@
 
 > Transform your React code to Preact.
 
-## Demo: [astexplorer](http://astexplorer.net/#/Pcp2Q5NFLq/9)
+## Demo: [astexplorer](http://astexplorer.net/#/Pcp2Q5NFLq/10)
 
 ## Tests
 
