@@ -1,6 +1,6 @@
 {
   "name": "preact-codemod",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Transform your React code to Preact",
   "main": "transform.js",
   "scripts": {
