@@ -1,0 +1,4 @@
+render(
+  <App />,
+  document.body
+);

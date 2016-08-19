@@ -1,6 +1,3 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-
 const App = React.createClass({
   render: function() {
     return (
@@ -11,8 +8,3 @@ const App = React.createClass({
     );
   }
 });
-
-ReactDOM.render(
-  <App />,
-  document.body
-);
