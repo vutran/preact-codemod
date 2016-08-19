@@ -2,14 +2,17 @@ import {h, Component, render} from "preact";
 
 const data = {
   items: [
-    'Buy milk',
-    'Do laundry',
+    { name: 'Buy milk', done: false },
+    { name: 'Do laundry', done: false },
   ],
 };
 
-const TodoItem = function(props) {
+const TodoItem = function(props, state) {
   return (
-    <div>{props.item}</div>
+    <div>
+      <input type="checkbox" value={state.done} />
+      {props.item.name}
+    </div>
   );
 };
 

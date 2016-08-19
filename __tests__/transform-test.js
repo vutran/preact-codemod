@@ -7,6 +7,7 @@ defineTest(__dirname, 'transforms/import-declarations', null, 'import-declaratio
 defineTest(__dirname, 'transforms/import-declarations', null, 'import-declarations-render');
 defineTest(__dirname, 'transforms/import-declarations', null, 'import-declarations');
 defineTest(__dirname, 'transforms/props', null, 'props');
+defineTest(__dirname, 'transforms/state', null, 'state');
 
 defineTest(__dirname, 'transform', null, 'transform');
 defineTest(__dirname, 'transform', null, 'nested');
