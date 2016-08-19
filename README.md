@@ -1,4 +1,4 @@
-# react-transform-preact
+# preact-codemod
 
 > Transform your React code to Preact.
 
