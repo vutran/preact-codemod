@@ -3,15 +3,18 @@ const ReactDOM = require('react-dom');
 
 const data = {
   items: [
-    'Buy milk',
-    'Do laundry',
+    { name: 'Buy milk', done: false },
+    { name: 'Do laundry', done: false },
   ],
 };
 
 const TodoItem = React.createClass({
   render: function() {
     return (
-      <div>{this.props.item}</div>
+      <div>
+        <input type="checkbox" value={this.state.done} />
+        {this.props.item.name}
+      </div>
     );
   },
 });

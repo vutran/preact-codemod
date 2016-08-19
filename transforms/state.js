@@ -1,5 +1,5 @@
 /**
- * Makes props available as the argument in its calling function.
+ * Makes state available as the argument in its calling function.
  * Also strips the `this` context in the JSX expression.
  */
 module.exports = (file, api) => {
@@ -10,7 +10,7 @@ module.exports = (file, api) => {
   root
   	.find(j.ThisExpression)
   	.closest(j.MemberExpression)
-    .filter(n => n.value.object.type === 'ThisExpression' && n.value.property.name === 'props')
+    .filter(n => n.value.object.type === 'ThisExpression' && n.value.property.name === 'state')
     .closest(j.MemberExpression)
     .replaceWith(n => {
         const prop = n.value.property.name;
@@ -18,7 +18,7 @@ module.exports = (file, api) => {
           type: 'MemberExpression',
           object: {
             type: 'Identifier',
-            name: 'props',
+            name: 'state',
           },
           property: {
             type: 'Identifier',
@@ -32,6 +32,7 @@ module.exports = (file, api) => {
               if (!n1.value.params.length) {
                 n1.value.params.push('props');
               }
+              n1.value.params.push('state');
             });
         }
         return newNode;
