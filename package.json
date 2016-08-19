@@ -8,6 +8,14 @@
   },
   "author": "Vu Tran <vu@vu-tran.com>",
   "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "git@github.com:vutran/preact-codemod.git"
+  },
+  "homepage": "https://github.com/vutran/preact-codemod",
+  "bugs": {
+    "web": "https://github.com/vutran/preact-codemod/issues"
+  },
   "devDependencies": {
     "jest-cli": "^14.1.0",
     "jscodeshift": "^0.3.27"
