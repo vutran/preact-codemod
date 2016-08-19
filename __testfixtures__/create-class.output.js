@@ -1,5 +1,3 @@
-import {h, Component, render} from "preact";
-
 const App = function() {
   return (
     <div>
@@ -8,8 +6,3 @@ const App = function() {
     </div>
   );
 };
-
-render(
-  <App />,
-  document.body
-);
