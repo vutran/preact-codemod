@@ -14,3 +14,16 @@ $ npm test
 
 - Learning and experimenting with jscodeshift by transforming React to Preact.
 - Eventually can convert a big React application.
+
+## Contributing
+
+♥ ***`preact-codemod`*** and want to contribute? You can help contribute to the growth of this codemod in many ways.
+
+- [Bug Reports](CONTRIBUTING.md#bug-reports)
+- [Feature Requests](CONTRIBUTING.md#feature-requests)
+- [Pull Requests](CONTRIBUTING.md#pull-requests)
+- [Feedback and Suggestions](CONTRIBUTING.md#feedback-and-suggestions)
+
+## License
+
+MIT © [Vu Tran](https://github.com/vutran/)
