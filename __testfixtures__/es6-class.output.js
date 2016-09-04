@@ -1,6 +1,6 @@
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props, context) {
+    super(props, context);
     this.foo = "bar";
   }
 
@@ -16,15 +16,15 @@ class App extends Component {
 }
 
 class App1 extends Component {
-  constructor() {
-    super();
+  constructor(props, context) {
+    super(props, context);
     this.id = 1;
   }
 }
 
 class App2 extends Component {
-  constructor() {
-    super();
+  constructor(props, context) {
+    super(props, context);
     this.id = 2;
   }
 }

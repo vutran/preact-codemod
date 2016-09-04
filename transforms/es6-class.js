@@ -23,7 +23,16 @@ module.exports = (file, api) => {
               callee: {
                 type: 'Super',
               },
-              arguments: [],
+              arguments: [
+                {
+                  type: 'Identifier',
+                  name: 'props',
+                },
+                {
+                  type: 'Identifier',
+                  name: 'context',
+                }
+              ],
             },
           },
         ];
@@ -72,7 +81,16 @@ module.exports = (file, api) => {
             kind: 'constructor',
             value: {
               type: 'FunctionExpression',
-              params: [],
+              params: [
+                {
+                  type: 'Identifier',
+                  name: 'props',
+                },
+                {
+                  type: 'Identifier',
+                  name: 'context',
+                },
+              ],
               body: {
                 type: 'BlockStatement',
                 body: constructorBody.concat(literals),
