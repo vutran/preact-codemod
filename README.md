@@ -1,5 +1,7 @@
 # preact-codemod
 
+[![Build Status](https://travis-ci.org/vutran/preact-codemod.svg?branch=master)](https://travis-ci.org/vutran/preact-codemod)
+
 > Transform your React code to Preact.
 
 ## Demo: [astexplorer](http://astexplorer.net/#/Pcp2Q5NFLq/10)
