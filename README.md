@@ -1,6 +1,6 @@
 # preact-codemod
 
-[![Build Status](https://travis-ci.org/vutran/preact-codemod.svg?branch=master)](https://travis-ci.org/vutran/preact-codemod)
+[![Build Status](https://travis-ci.org/vutran/preact-codemod.svg?branch=master)](https://travis-ci.org/vutran/preact-codemod) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/vutran/preact-codemod/blob/master/LICENSE)
 
 > Transform your React code to Preact.
 
