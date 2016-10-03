@@ -17,7 +17,7 @@
     "web": "https://github.com/vutran/preact-codemod/issues"
   },
   "devDependencies": {
-    "jest-cli": "^15.1.1",
+    "jest-cli": "^16.0.0",
     "jscodeshift": "^0.3.27"
   },
   "dependencies": {}
