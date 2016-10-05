@@ -4,19 +4,20 @@
   "description": "Transform your React code to Preact",
   "main": "transform.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "author": "Vu Tran <vu@vu-tran.com>",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "git@github.com:vutran/preact-codemod.git"
+    "type": "git",
+    "url": "git@github.com:vutran/preact-codemod.git"
   },
   "homepage": "https://github.com/vutran/preact-codemod",
   "bugs": {
     "web": "https://github.com/vutran/preact-codemod/issues"
   },
   "devDependencies": {
+    "coveralls": "^2.11.14",
     "jest-cli": "^16.0.0",
     "jscodeshift": "^0.3.27"
   },
