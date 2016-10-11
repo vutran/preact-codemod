@@ -10,10 +10,18 @@
   ```bash
   $ cd preact-codemod
   ```
-3. Install `npm` dependencies.
+3. Install dependencies.
+
+  **With `npm`:**
 
   ```bash
   $ npm install
+  ```
+
+  **With [`yarn`](https://github.com/yarnpkg/yarn):**
+
+  ```bash
+  $ yarn
   ```
 4. Create a transform in the `./transforms` directory.
 6. Create a test fixture in the `./__testfixtures__` directory.
