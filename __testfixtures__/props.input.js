@@ -1,21 +1,27 @@
 const TodoItem = React.createClass({
-  render: function() {
+  render: function(props) {
     return (
-      <div>{this.props.item}</div>
+      <div>
+        {props.item}
+      </div>
     );
-  },
+  }
 });
 
-const TodoItem = function() {
+const TodoItem = function(props) {
   return (
-    <div>{this.props.item}</div>
+    <div>
+      {props.item}
+    </div>
   );
 };
 
 class TodoItem extends Component {
-  render() {
+  render(props) {
     return (
-      <div>{this.props.item}</div>
+      <div>
+        {props.item}
+      </div>
     );
   }
 }
