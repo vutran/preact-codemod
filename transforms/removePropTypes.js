@@ -6,7 +6,7 @@ const removeNamedImportPropTypes = (file, api) => {
   const root = j(file.source);
   root
     .find(j.ImportSpecifier)
-    .filter(n => n.value.imported.name === 'PropTypes')
+    .filter(n => n.value.imported.name === "PropTypes")
     .remove();
 
   return root.toSource();
@@ -34,12 +34,11 @@ const removePropTypesAssignments = (file, api) => {
   const root = j(file.source);
   root
     .find(j.AssignmentExpression)
-    .filter(n => n.value.left.property.name === 'propTypes')
+    .filter(n => n.value.left.property.name === "propTypes")
     .remove();
 
   return root.toSource();
 };
-
 
 module.exports = (file, api) => {
   let source = file.source;

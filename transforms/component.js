@@ -1,5 +1,5 @@
-const createClass = require('./create-class');
-const es6Class = require('./es6-class');
+const createClass = require("./create-class");
+const es6Class = require("./es6-class");
 
 /**
  * Conditionally transforms a component into a pure function
@@ -9,10 +9,10 @@ module.exports = (file, api) => {
   const j = api.jscodeshift;
   const root = j(file.source);
 
-  const pureProps = ['render', 'defaultProps', 'displayName'];
+  const pureProps = ["render", "defaultProps", "displayName"];
 
   root
-    .find(j.Identifier, n => n.name === 'createClass')
+    .find(j.Identifier, n => n.name === "createClass")
     .closest(j.VariableDeclaration)
     .replaceWith(v => {
       return v.value.declarations.map(n => {
@@ -23,7 +23,7 @@ module.exports = (file, api) => {
           const nv = {
             type: v.value.type,
             kind: v.value.kind,
-            declarations: [j(n).toSource()],
+            declarations: [j(n).toSource()]
           };
           return es6Class({ source: j(nv).toSource() }, api);
         } else {
@@ -31,7 +31,7 @@ module.exports = (file, api) => {
           const nv = {
             type: v.value.type,
             kind: v.value.kind,
-            declarations: [j(n).toSource()],
+            declarations: [j(n).toSource()]
           };
           return createClass({ source: j(nv).toSource() }, api);
         }
