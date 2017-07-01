@@ -19,7 +19,9 @@
   "devDependencies": {
     "coveralls": "^2.11.14",
     "jest-cli": "^18.1.0",
-    "jscodeshift": "^0.3.27"
+    "jscodeshift": "^0.3.32"
   },
-  "dependencies": {}
+  "dependencies": {
+    "preact": "^8.1.0"
+  }
 }

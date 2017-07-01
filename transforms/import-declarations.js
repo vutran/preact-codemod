@@ -7,17 +7,17 @@
  */
 const importDeclaration = (source, values) => {
   const node = {
-    type: 'ImportDeclaration',
-    importKind: 'value',
-    source: { type: 'Literal', value: source },
-    specifiers: [],
+    type: "ImportDeclaration",
+    importKind: "value",
+    source: { type: "Literal", value: source },
+    specifiers: []
   };
   values.forEach(v => {
     node.specifiers.push({
-      type: 'ImportSpecifier',
-      imported: { type: 'Identifier', name: v },
-      local: { type: 'Identifier', name: v },
-    })
+      type: "ImportSpecifier",
+      imported: { type: "Identifier", name: v },
+      local: { type: "Identifier", name: v }
+    });
   });
   return node;
 };
@@ -28,35 +28,39 @@ const importDeclaration = (source, values) => {
 module.exports = (file, api) => {
   const j = api.jscodeshift;
   const root = j(file.source);
-  const namedImports = new Set(['h']);
+  const namedImports = new Set(["h"]);
 
   // should import preact.Component?
   root
     .find(j.MemberExpression)
-    .filter(n => n.value.object.name === 'React' && n.value.property.name === 'createClass')
+    .filter(
+      n =>
+        n.value.object.name === "React" &&
+        n.value.property.name === "createClass"
+    )
     .forEach(n => {
-      namedImports.add('Component');
+      namedImports.add("Component");
     });
 
   // should import preact.render?
   root
     .find(j.MemberExpression)
-    .filter(n => n.value.object.name === 'ReactDOM' && n.value.property.name === 'render')
+    .filter(
+      n =>
+        n.value.object.name === "ReactDOM" && n.value.property.name === "render"
+    )
     .forEach(n => {
-      namedImports.add('render');
+      namedImports.add("render");
     });
 
   // remove react
-  root
-    .findVariableDeclarators('React')
-    .closest(j.VariableDeclaration)
-    .remove();
+  root.findVariableDeclarators("React").closest(j.VariableDeclaration).remove();
 
   // replace render
   root
-    .findVariableDeclarators('ReactDOM')
+    .findVariableDeclarators("ReactDOM")
     .closest(j.VariableDeclaration)
-    .replaceWith(importDeclaration('preact', namedImports));
+    .replaceWith(importDeclaration("preact", namedImports));
 
   return root.toSource();
 };

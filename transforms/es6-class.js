@@ -6,7 +6,7 @@ module.exports = (file, api) => {
   const root = j(file.source);
 
   root
-    .find(j.Identifier, n => n.name === 'createClass')
+    .find(j.Identifier, n => n.name === "createClass")
     .closest(j.VariableDeclaration)
     .replaceWith(v => {
       return v.value.declarations.map(n => {
@@ -17,54 +17,58 @@ module.exports = (file, api) => {
         const body = [];
         const constructorBody = [
           {
-            type: 'ExpressionStatement',
+            type: "ExpressionStatement",
             expression: {
-              type: 'CallExpression',
+              type: "CallExpression",
               callee: {
-                type: 'Super',
+                type: "Super"
               },
               arguments: [
                 {
-                  type: 'Identifier',
-                  name: 'props',
+                  type: "Identifier",
+                  name: "props"
                 },
                 {
-                  type: 'Identifier',
-                  name: 'context',
+                  type: "Identifier",
+                  name: "context"
                 }
-              ],
-            },
-          },
+              ]
+            }
+          }
         ];
         // iterate through each props
         // and build a definition for all class
         // properties and methods
         props.forEach(prop => {
           switch (prop.value.type) {
-            case 'FunctionExpression':
-              methods.push({ type: 'MethodDefinition', key: prop.key, value: prop.value });
+            case "FunctionExpression":
+              methods.push({
+                type: "MethodDefinition",
+                key: prop.key,
+                value: prop.value
+              });
               break;
-            case 'Literal':
+            case "Literal":
               literals.push({
-                type: 'ExpressionStatement',
+                type: "ExpressionStatement",
                 expression: {
-                  type: 'AssignmentExpression',
-                  operator: '=',
+                  type: "AssignmentExpression",
+                  operator: "=",
                   left: {
-                    type: 'MemberExpression',
+                    type: "MemberExpression",
                     object: {
-                      type: 'ThisExpression',
+                      type: "ThisExpression"
                     },
                     property: {
-                      type: 'Identifier',
-                      name: prop.key.name,
-                    },
+                      type: "Identifier",
+                      name: prop.key.name
+                    }
                   },
                   right: {
-                    type: 'Literal',
-                    value: prop.value.value,
-                  },
-                },
+                    type: "Literal",
+                    value: prop.value.value
+                  }
+                }
               });
               break;
           }
@@ -72,47 +76,47 @@ module.exports = (file, api) => {
         // build the body
         if (literals.length) {
           body.unshift({
-            type: 'MethodDefinition',
+            type: "MethodDefinition",
             key: {
-              type: 'Identifier',
-              name: 'constructor',
+              type: "Identifier",
+              name: "constructor"
             },
             static: false,
-            kind: 'constructor',
+            kind: "constructor",
             value: {
-              type: 'FunctionExpression',
+              type: "FunctionExpression",
               params: [
                 {
-                  type: 'Identifier',
-                  name: 'props',
+                  type: "Identifier",
+                  name: "props"
                 },
                 {
-                  type: 'Identifier',
-                  name: 'context',
-                },
+                  type: "Identifier",
+                  name: "context"
+                }
               ],
               body: {
-                type: 'BlockStatement',
-                body: constructorBody.concat(literals),
-              },
-            },
+                type: "BlockStatement",
+                body: constructorBody.concat(literals)
+              }
+            }
           });
         }
         // create the class
         return {
-          type: 'ClassDeclaration',
+          type: "ClassDeclaration",
           id: {
-            type: 'Identifier',
-            name: n.id.name,
+            type: "Identifier",
+            name: n.id.name
           },
           superClass: {
-            type: 'Identifier',
-            name: 'Component',
+            type: "Identifier",
+            name: "Component"
           },
           body: {
-            type: 'ClassBody',
-            body: body.concat(methods),
-          },
+            type: "ClassBody",
+            body: body.concat(methods)
+          }
         };
       });
     });
