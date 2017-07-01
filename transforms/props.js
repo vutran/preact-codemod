@@ -27,7 +27,10 @@ module.exports = (file, api) => {
       };
       if (prop) {
         j(n).closest(j.FunctionExpression).forEach(n1 => {
-          if (!n1.value.params.length || !n1.value.params.contains('props')) {
+          if (
+            !n1.value.params.length ||
+            !(n1.value.params.length && n1.value.params.includes('props'))
+          ) {
             n1.value.params.push('props');
           }
         });
