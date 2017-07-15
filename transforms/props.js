@@ -29,7 +29,7 @@ module.exports = (file, api) => {
           j(n)
             .closest(j.FunctionExpression)
             .forEach(n1 => {
-              if (!n1.value.params.length) {
+              if (!n1.value.params.length && (n1.value.params.length && !n1.value.params.includes('props'))) {
                 n1.value.params.push('props');
               }
             });
