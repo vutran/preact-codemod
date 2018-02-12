@@ -22,14 +22,9 @@ const TodoItem = React.createClass({
 const App = React.createClass({
   render: function() {
     return (
-      <div>
-        {this.props.data.items.map(item => <TodoItem item={item} />)}
-      </div>
+      <div>{this.props.data.items.map(item => <TodoItem item={item} />)}</div>
     );
-  }
+  },
 });
 
-ReactDOM.render(
-  <App data={data} />,
-  document.body
-);
+ReactDOM.render(<App data={data} />, document.body);

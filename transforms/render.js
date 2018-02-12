@@ -7,8 +7,11 @@ module.exports = (file, api) => {
 
   root
     .find(j.MemberExpression)
-    .filter(n => n.value.object.name === 'ReactDOM' && n.value.property.name === 'render')
+    .filter(
+      n =>
+        n.value.object.name === 'ReactDOM' && n.value.property.name === 'render'
+    )
     .replaceWith({ type: 'Identifier', name: 'render' });
 
-  return root.toSource();
+  return root.toSource({ quote: 'single' });
 };

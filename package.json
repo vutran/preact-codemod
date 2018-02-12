@@ -1,24 +1,37 @@
 {
-  "name": "preact-codemod",
-  "version": "0.1.1",
-  "description": "Transform your React code to Preact",
-  "main": "transform.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "author": "Vu Tran <vu@vu-tran.com>",
-  "license": "MIT",
-  "repository": {
-    "type" : "git",
-    "url" : "git@github.com:vutran/preact-codemod.git"
-  },
-  "homepage": "https://github.com/vutran/preact-codemod",
-  "bugs": {
-    "web": "https://github.com/vutran/preact-codemod/issues"
-  },
-  "devDependencies": {
-    "jest-cli": "^16.0.0",
-    "jscodeshift": "^0.3.27"
-  },
-  "dependencies": {}
+    "name": "preact-codemod",
+    "version": "0.1.1",
+    "description": "Transform your React code to Preact",
+    "main": "transform.js",
+    "scripts": {
+        "fmt": "npm run fmt:js && npm run fmt:md",
+        "fmt:js": "prettier --write '{*.js,*.json,{__testfixtures__,__tests__,transforms}/**/*.js{,x}}'",
+        "fmt:md": "prettier --parser markdown --write '*.md'",
+        "precommit": "lint-staged",
+        "test": "jest"
+    },
+    "author": "Vu Tran <vu@vu-tran.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:vutran/preact-codemod.git"
+    },
+    "homepage": "https://github.com/vutran/preact-codemod",
+    "bugs": {
+        "web": "https://github.com/vutran/preact-codemod/issues"
+    },
+    "devDependencies": {
+        "husky": "^0.14.3",
+        "jest-cli": "^16.0.0",
+        "jscodeshift": "^0.3.27",
+        "lint-staged": "^6.1.0",
+        "prettier": "^1.10.2"
+    },
+    "dependencies": {},
+    "lint-staged": {
+        "{*.js,{src,__tests__,typings}/**/*.ts{,x}}": [
+            "prettier --write",
+            "git add"
+        ]
+    }
 }

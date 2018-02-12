@@ -9,7 +9,7 @@ const removeNamedImportPropTypes = (file, api) => {
     .filter(n => n.value.imported.name === 'PropTypes')
     .remove();
 
-  return root.toSource();
+  return root.toSource({ quote: 'single' });
 };
 
 /**
@@ -23,7 +23,7 @@ const removeEmptyImports = (file, api) => {
     .filter(n => !n.value.specifiers.length)
     .remove();
 
-  return root.toSource();
+  return root.toSource({ quote: 'single' });
 };
 
 /**
@@ -37,9 +37,8 @@ const removePropTypesAssignments = (file, api) => {
     .filter(n => n.value.left.property.name === 'propTypes')
     .remove();
 
-  return root.toSource();
+  return root.toSource({ quote: 'single' });
 };
-
 
 module.exports = (file, api) => {
   let source = file.source;

@@ -31,7 +31,7 @@ module.exports = (file, api) => {
                 {
                   type: 'Identifier',
                   name: 'context',
-                }
+                },
               ],
             },
           },
@@ -42,7 +42,11 @@ module.exports = (file, api) => {
         props.forEach(prop => {
           switch (prop.value.type) {
             case 'FunctionExpression':
-              methods.push({ type: 'MethodDefinition', key: prop.key, value: prop.value });
+              methods.push({
+                type: 'MethodDefinition',
+                key: prop.key,
+                value: prop.value,
+              });
               break;
             case 'Literal':
               literals.push({
@@ -117,5 +121,5 @@ module.exports = (file, api) => {
       });
     });
 
-  return root.toSource();
+  return root.toSource({ quote: 'single' });
 };

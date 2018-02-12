@@ -38,5 +38,5 @@ module.exports = (file, api) => {
       });
     });
 
-  return root.toSource();
+  return root.toSource({ quote: 'single' });
 };

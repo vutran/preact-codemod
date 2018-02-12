@@ -1,7 +1,7 @@
 class App extends Component {
   constructor(props, context) {
     super(props, context);
-    this.foo = "bar";
+    this.foo = 'bar';
   }
 
   shouldComponentUpdate() {
@@ -9,9 +9,7 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div>Test</div>
-    );
+    return <div>Test</div>;
   }
 }
 

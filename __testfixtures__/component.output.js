@@ -1,7 +1,5 @@
 const PureComponent = function() {
-  return (
-    <div>PureComponent Test</div>
-  );
+  return <div>PureComponent Test</div>;
 };
 
 class ImpureComponent extends Component {
@@ -10,8 +8,6 @@ class ImpureComponent extends Component {
   }
 
   render() {
-    return (
-      <div>ImpureComponent Test</div>
-    );
+    return <div>ImpureComponent Test</div>;
   }
 }

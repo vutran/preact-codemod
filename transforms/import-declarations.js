@@ -17,7 +17,7 @@ const importDeclaration = (source, values) => {
       type: 'ImportSpecifier',
       imported: { type: 'Identifier', name: v },
       local: { type: 'Identifier', name: v },
-    })
+    });
   });
   return node;
 };
@@ -33,7 +33,11 @@ module.exports = (file, api) => {
   // should import preact.Component?
   root
     .find(j.MemberExpression)
-    .filter(n => n.value.object.name === 'React' && n.value.property.name === 'createClass')
+    .filter(
+      n =>
+        n.value.object.name === 'React' &&
+        n.value.property.name === 'createClass'
+    )
     .forEach(n => {
       namedImports.add('Component');
     });
@@ -41,7 +45,10 @@ module.exports = (file, api) => {
   // should import preact.render?
   root
     .find(j.MemberExpression)
-    .filter(n => n.value.object.name === 'ReactDOM' && n.value.property.name === 'render')
+    .filter(
+      n =>
+        n.value.object.name === 'ReactDOM' && n.value.property.name === 'render'
+    )
     .forEach(n => {
       namedImports.add('render');
     });
@@ -58,5 +65,5 @@ module.exports = (file, api) => {
     .closest(j.VariableDeclaration)
     .replaceWith(importDeclaration('preact', namedImports));
 
-  return root.toSource();
+  return root.toSource({ quote: 'single' });
 };

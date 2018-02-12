@@ -1,4 +1,1 @@
-render(
-  <App />,
-  document.body
-);
+render(<App />, document.body);

@@ -14,17 +14,17 @@ $ npm test
 
 ## Goals
 
-- Learning and experimenting with jscodeshift by transforming React to Preact.
-- Eventually can convert a big React application.
+* Learning and experimenting with jscodeshift by transforming React to Preact.
+* Eventually can convert a big React application.
 
 ## Contributing
 
-♥ ***`preact-codemod`*** and want to contribute? You can help contribute to the growth of this codemod in many ways.
+♥ **_`preact-codemod`_** and want to contribute? You can help contribute to the growth of this codemod in many ways.
 
-- [Bug Reports](CONTRIBUTING.md#bug-reports)
-- [Feature Requests](CONTRIBUTING.md#feature-requests)
-- [Pull Requests](CONTRIBUTING.md#pull-requests)
-- [Feedback and Suggestions](CONTRIBUTING.md#feedback-and-suggestions)
+* [Bug Reports](CONTRIBUTING.md#bug-reports)
+* [Feature Requests](CONTRIBUTING.md#feature-requests)
+* [Pull Requests](CONTRIBUTING.md#pull-requests)
+* [Feedback and Suggestions](CONTRIBUTING.md#feedback-and-suggestions)
 
 ## License
 

@@ -11,7 +11,11 @@ module.exports = (file, api) => {
     .find(j.JSXElement)
     .filter(n => n.parentPath.value.type === 'ReturnStatement')
     .closest(j.CallExpression)
-    .replaceWith(n => n.value.arguments[0].properties.filter(p => p.key.name === 'render')[0].value);
+    .replaceWith(
+      n =>
+        n.value.arguments[0].properties.filter(p => p.key.name === 'render')[0]
+          .value
+    );
 
-  return root.toSource();
+  return root.toSource({ quote: 'single' });
 };

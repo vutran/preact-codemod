@@ -6,5 +6,5 @@ const App = React.createClass({
         <span>I get transformed to Preact!</span>
       </div>
     );
-  }
+  },
 });
