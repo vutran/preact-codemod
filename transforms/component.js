@@ -1,9 +1,10 @@
-const createClass = require('./create-class');
+const sfc = require('./component-sfc');
 const es6Class = require('./es6-class');
 
 /**
- * Conditionally transforms a component into a pure function
- *  or an ES6 class
+ * Conditionally transforms a component:
+ * - class component
+ * - stateless functional component
  */
 module.exports = (file, api) => {
   const j = api.jscodeshift;
@@ -33,7 +34,7 @@ module.exports = (file, api) => {
             kind: v.value.kind,
             declarations: [j(n).toSource()],
           };
-          return createClass({ source: j(nv).toSource() }, api);
+          return sfc({ source: j(nv).toSource() }, api);
         }
       });
     });
