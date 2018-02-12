@@ -5,7 +5,7 @@ const defineTest = require('jscodeshift/dist/testUtils').defineTest;
 
 defineTest(__dirname, 'transforms/component', null, 'component');
 defineTest(__dirname, 'transforms/component-sfc', null, 'component-sfc');
-defineTest(__dirname, 'transforms/es6-class', null, 'es6-class');
+defineTest(__dirname, 'transforms/component-class', null, 'component-class');
 defineTest(
   __dirname,
   'transforms/import-declarations',

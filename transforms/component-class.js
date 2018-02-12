@@ -1,5 +1,5 @@
 /**
- * Transforms React.createClass to an ES6 class
+ * Transforms React.createClass to an ES2015 class
  */
 module.exports = (file, api) => {
   const j = api.jscodeshift;
